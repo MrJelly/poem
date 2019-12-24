@@ -27,9 +27,9 @@ export default {
   methods: {
     getList() {
       getPoemDetail(this.id).then(data => {
-        const l = data[0];
-        console.log("TCL: getData -> l", l);
-        l && (this.list = { ...l });
+        const _list = data[0];
+        console.log("TCL: getData -> _list", _list);
+        _list && (this.list = { ..._list });
       });
     }
   }
