@@ -3,7 +3,8 @@
     "pages/home/main",
     "pages/about/main",
     "pages/directory/main",
-    "pages/detail/main"
+    "pages/details/main",
+    "pages/subdetails/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
