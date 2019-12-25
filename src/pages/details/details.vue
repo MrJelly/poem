@@ -59,7 +59,6 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  padding-top: 30px;
   overflow-x: hidden;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
