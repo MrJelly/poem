@@ -1,10 +1,12 @@
 <template>
   <div class="details" :style="{backgroundImage:'url('+bgImage+')'}">
-    <h3>{{list.title}}</h3>
-    <p>{{list.author}}·{{list.tags}}</p>
-    <ul>
-      <li v-for="(value, key) in list.paragraphs" :key="key">{{value}}</li>
-    </ul>
+    <div class="bg-color">
+      <h3>{{list.title}}</h3>
+      <p>{{list.author}}·{{list.tags}}</p>
+      <ul>
+        <li v-for="(value, key) in list.paragraphs" :key="key">{{value}}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -13,7 +15,7 @@ import { getPoemDetails, getRandomImage } from "@utils/db";
 export default {
   data() {
     return {
-      bgImage:"",
+      bgImage: "",
       id: "",
       list: {}
     };
@@ -24,6 +26,7 @@ export default {
   },
   onUnload() {
     this.id = "";
+    this.bgImage = "";
     this.list = {};
   },
   mounted() {
@@ -34,7 +37,7 @@ export default {
     getBackgroundImage() {
       getRandomImage()
         .then(data => {
-          this.bgImage = data.fileList[0].tempFileURL
+          this.bgImage = data.fileList[0].tempFileURL;
         })
         .catch(err => {
           console.log("TCL: getBackgroundImage err", err);
@@ -53,23 +56,34 @@ export default {
 
 <style lang="less" scoped>
 .details {
-  background-color: #999;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-top: 30px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100% 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  background-size: cover;
+  .bg-color {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+  }
   h3 {
     font-size: 18px;
     font-weight: bold;
     line-height: 30px;
+    text-align: center;
   }
   p {
     color: #999;
     font-size: 14px;
     line-height: 22px;
+    text-align: center;
   }
   ul {
     li {

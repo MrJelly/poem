@@ -31,6 +31,14 @@ export default {
 </script>
 
 <style>
+page{
+  background: #fefefe;
+  width: 100%;
+  height: 100%;
+  overflow-x:hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
 .container {
   height: 100%;
   display: flex;
