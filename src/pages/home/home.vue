@@ -2,7 +2,7 @@
   <div class="home">
     <ul class="poem-list">
       <li
-        @click="onDetail(value._id)"
+        @click="onDetails(value._id)"
         class="item"
         v-for="(value,key) in poemList"
         :key="key"
@@ -35,26 +35,23 @@ export default {
       });
     },
 
-    onDetail(_id) {
+    onDetails(_id) {
       wx.showLoading({
         title: "加载中"
       });
       judgeToPage(_id)
         .then(data => {
           wx.hideLoading();
-          console.log("TCL: onDetail -> then.data", data);
           if (data == 0) {
-            console.log("1111111")
             const url = "../directory/main?id=" + _id
             wx.navigateTo({ url });
           } else {
-            console.log("22222222")
-            const url = "../detail/main?id=" + _id
+            const url = "../details/main?id=" + _id
             wx.navigateTo({ url });
           }
         })
         .catch(err => {
-          console.log("TCL: onDetail -> err", err);
+          console.log("TCL: onDetails -> err", err);
         });
     }
   }

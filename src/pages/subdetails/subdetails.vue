@@ -1,5 +1,5 @@
 <template>
-  <div class="detail">
+  <div class="subdetails">
     <h3>{{list.title}}</h3>
     <p>{{list.author}}·{{list.tags}}</p>
     <ul>
@@ -9,35 +9,46 @@
 </template>
 
 <script>
-import { getPoemDetail } from "@utils/db";
+import { getPoemSubDetails } from "@utils/db";
 export default {
   data() {
     return {
       id: "",
+      contentId: "",
       list: {}
     };
   },
   onLoad(options) {
     this.id = options.id;
+    this.contentId = options.contentId;
     console.log("TCL: onLoad -> id", this.id);
+  },
+  onUnload() {
+    this.id = "";
+    this.contentId = "";
+    this.list = {};
   },
   mounted() {
     this.getList();
   },
   methods: {
     getList() {
-      getPoemDetail(this.id).then(data => {
-        const _list = data[0];
-        console.log("TCL: getData -> _list", _list);
-        _list && (this.list = { ..._list });
-      });
+      getPoemSubDetails(this.id, this.contentId)
+        .then(data => {
+          const _list = data.list[0].content[0];
+          console.log("TCL: getPoemSubDetails _list", _list);
+          _list && (this.list = { ..._list });
+        })
+        .catch(err => {
+          console.log("TCL: getList -> err", err);
+        });
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.detail {
+.subdetails {
   display: flex;
   align-items: center;
   justify-content: center;

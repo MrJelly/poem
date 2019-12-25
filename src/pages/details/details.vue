@@ -1,5 +1,5 @@
 <template>
-  <div class="detail">
+  <div class="details" :style="{backgroundImage:'url('+bgImage+')'}">
     <h3>{{list.title}}</h3>
     <p>{{list.author}}·{{list.tags}}</p>
     <ul>
@@ -9,10 +9,11 @@
 </template>
 
 <script>
-import { getPoemDetail } from "@utils/db";
+import { getPoemDetails, getRandomImage } from "@utils/db";
 export default {
   data() {
     return {
+      bgImage:"",
       id: "",
       list: {}
     };
@@ -21,12 +22,26 @@ export default {
     this.id = options.id;
     console.log("TCL: onLoad -> id", this.id);
   },
+  onUnload() {
+    this.id = "";
+    this.list = {};
+  },
   mounted() {
+    this.getBackgroundImage();
     this.getList();
   },
   methods: {
+    getBackgroundImage() {
+      getRandomImage()
+        .then(data => {
+          this.bgImage = data.fileList[0].tempFileURL
+        })
+        .catch(err => {
+          console.log("TCL: getBackgroundImage err", err);
+        });
+    },
     getList() {
-      getPoemDetail(this.id).then(data => {
+      getPoemDetails(this.id).then(data => {
         const _list = data[0];
         console.log("TCL: getData -> _list", _list);
         _list && (this.list = { ..._list });
@@ -37,7 +52,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.detail {
+.details {
+  background-color: #999;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
   display: flex;
   align-items: center;
   justify-content: center;

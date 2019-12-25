@@ -7,13 +7,14 @@
 		"minified": true,
 		"newFeature": true
 	},
-  "miniprogramRoot": "dist/wx/",
-  "cloudfunctionRoot": "src/utils/cloud",
+	"miniprogramRoot": "dist/wx/",
+	"cloudfunctionRoot": "src/utils/cloud/",
 	"compileType": "miniprogram",
 	"appid": "wxf35b8a76cf65e04d",
 	"projectname": "poem",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {
 		"search": {
 			"current": -1,
