@@ -11,5 +11,9 @@ if (!wx.cloud) {
   })
 }
 
+// 引入mixin
+import mixins from './mixins'
+Vue.mixin(mixins)
+
 const app = new Vue(App)
 app.$mount()

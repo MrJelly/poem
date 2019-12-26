@@ -8,14 +8,14 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#1d3243",
     "navigationBarTitleText": "Poem",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "color": "#999",
-    "backgroundColor": "#fafafa",
-    "selectedColor": "#333",
+    "color": "#8e98a1",
+    "backgroundColor": "#1d3243",
+    "selectedColor": "#fff",
     "borderStyle": "white",
 
     "list": [{
@@ -45,5 +45,11 @@
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2",
-  "cloud": true
+  "cloud": true,
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.3",
+      "provider": "wx069ba97219f66d99"
+    }
+  }
 }

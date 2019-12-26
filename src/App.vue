@@ -1,6 +1,6 @@
 <script>
 export default {
-  created () {
+  created() {
     // 调用API从本地缓存中获取数据
     /*
      * 平台 api 差异的处理方式:  api 方法统一挂载到 mpvue 名称空间, 平台判断通过 mpvuePlatform 特征字符串
@@ -10,33 +10,42 @@ export default {
      * 支付宝(蚂蚁)：mpvue === my, mpvuePlatform === 'my'
      */
 
-    let logs
-    if (mpvuePlatform === 'my') {
-      logs = mpvue.getStorageSync({key: 'logs'}).data || []
-      logs.unshift(Date.now())
+    let logs;
+    if (mpvuePlatform === "my") {
+      logs = mpvue.getStorageSync({ key: "logs" }).data || [];
+      logs.unshift(Date.now());
       mpvue.setStorageSync({
-        key: 'logs',
+        key: "logs",
         data: logs
-      })
+      });
     } else {
-      logs = mpvue.getStorageSync('logs') || []
-      logs.unshift(Date.now())
-      mpvue.setStorageSync('logs', logs)
+      logs = mpvue.getStorageSync("logs") || [];
+      logs.unshift(Date.now());
+      mpvue.setStorageSync("logs", logs);
     }
   },
-  log () {
-    console.log(`log at:${Date.now()}`)
+  log() {
+    console.log(`log at:${Date.now()}`);
   }
-}
+};
 </script>
 
 <style>
-page{
+@font-face {
+  font-family: "myfont";
+  src: url(https://706f-poemtest-1300983977.tcb.qcloud.la/static/font-face.ttf?sign=bdc68e068371953bc9a81a230372bba6&t=1577353738)
+    format("truetype");
+  font-weight: normal;
+
+  font-style: normal;
+}
+page {
   background: #fefefe;
   width: 100%;
   height: 100%;
-  overflow-x:hidden;
+  overflow-x: hidden;
   overflow-y: scroll;
+  font-family: "myfont";
   -webkit-overflow-scrolling: touch;
 }
 .container {
