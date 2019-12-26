@@ -6,7 +6,8 @@ const images = db.collection('images')
 export async function getPoemList() {
   return new Promise((resolve, reject) => {
     poem.field({
-      title: true
+      title: true,
+      bgimage: true
     }).get({
       success: function (res) {
         resolve(res.data)
@@ -17,7 +18,7 @@ export async function getPoemList() {
     })
   })
 }
-export async function judgeToPage(_id) {//判断跳转页面
+export async function judgeToPage(_id) { //判断跳转页面
   return new Promise((resolve, reject) => {
     poem.where({
       _id,
@@ -32,7 +33,7 @@ export async function judgeToPage(_id) {//判断跳转页面
     })
   })
 }
-export async function getPoemDetails(_id) {//
+export async function getPoemDetails(_id) { //
   return new Promise((resolve, reject) => {
     poem.where({
       _id
@@ -46,7 +47,7 @@ export async function getPoemDetails(_id) {//
     })
   })
 }
-export async function getDirectory(_id) {//获取二级目录
+export async function getDirectory(_id) { //获取二级目录
   return new Promise((resolve, reject) => {
     poem.where({
       _id
@@ -67,7 +68,7 @@ export async function getDirectory(_id) {//获取二级目录
     })
   })
 }
-export async function getPoemSubDetails(_id, contentId) {//
+export async function getPoemSubDetails(_id, contentId) { //
   return new Promise((resolve, reject) => {
     poem.aggregate().match({
       _id
@@ -95,7 +96,7 @@ export async function getPoemSubDetails(_id, contentId) {//
 //     console.log("TCL: getRandomImage -> err", err)
 //     reject(err)
 //   })
-export async function getRandomImage() {//
+export async function getRandomImage() { //
   return new Promise((resolve, reject) => {
     images.aggregate()
       .sample({

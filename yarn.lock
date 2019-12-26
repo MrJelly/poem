@@ -3936,7 +3936,7 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-mpvue-loader@^2.0.0:
+mpvue-loader@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/mpvue-loader/-/mpvue-loader-2.0.1.tgz#6220e70ef1fecb9d29d5e44f46e107b9081be8e3"
   integrity sha512-05iAwOnjfCKZKmqKy8JYXQeHFsGn8nqAODkVe6EbnS97wafb0TkU24TEer9jtfeBo9fHozgFjI4v96RaBxt4qg==

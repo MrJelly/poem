@@ -40,7 +40,7 @@ export default {
   font-style: normal;
 }
 page {
-  background: #fefefe;
+  background: #1d3243;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
