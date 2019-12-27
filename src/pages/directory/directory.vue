@@ -44,7 +44,6 @@ export default {
     getContent() {
       getDirectory(this.id).then(data => {
         const _list = data[0];
-        console.log("TCL: getContent -> _list", _list);
         _list && (this.list = { ..._list });
       });
     },
@@ -84,7 +83,7 @@ export default {
   .content {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: row-reverse;
     flex-wrap: nowrap;
     overflow-x: scroll;

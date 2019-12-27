@@ -38,6 +38,8 @@ export default {
 .swiper-item {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
   flex-direction: row-reverse;
   overflow-x: scroll;
   overflow-y: hidden;
