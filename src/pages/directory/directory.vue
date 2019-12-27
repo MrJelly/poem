@@ -2,10 +2,11 @@
   <div class="directory">
     <div class="bg-color">
       <div class="content">
-        <h3>{{list.title}}</h3>
-        <p v-if="list.author">{{list.author}}</p>
-        <ul>
+        <div class="title">{{list.title}}</div>
+        <div class="tags" v-if="list.author">{{list.author}}</div>
+        <ul class="paragraphs">
           <li
+            class="paragraph"
             v-for="(value, key) in list.content"
             :key="key"
             @click="onSubDetails(key)"
@@ -44,6 +45,9 @@ export default {
     getContent() {
       getDirectory(this.id).then(data => {
         const _list = data[0];
+        wx.setNavigationBarTitle({
+          title: _list.title
+        });
         _list && (this.list = { ..._list });
       });
     },
@@ -92,16 +96,15 @@ export default {
     height: 100%;
     padding: 50px 0;
     -webkit-overflow-scrolling: touch;
-    h3 {
+    .title {
       font-size: 28px;
       font-weight: bold;
-      line-height: 60px;
-      width: 60px;
+      line-height: 70px;
       text-align: center;
-      letter-spacing: 4px;
+      letter-spacing: 10px;
       writing-mode: vertical-rl;
     }
-    p {
+    .tags {
       color: #fefefe;
       font-size: 16px;
       line-height: 22px;
@@ -111,16 +114,12 @@ export default {
       letter-spacing: 4px;
       writing-mode: vertical-rl;
     }
-    ul {
+    .paragraphs {
       writing-mode: vertical-rl;
-      li {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      .paragraph {
         font-size: 24px;
         line-height: 40px;
         letter-spacing: 4px;
-        width: 40px;
       }
     }
   }

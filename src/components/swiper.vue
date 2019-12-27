@@ -2,10 +2,10 @@
   <swiper
     class="swiper"
     :indicator-dots="false"
-    easing-function="easeInCubic"
+    easing-function="easeOutCubic"
     :circular="true"
     :vertical="true"
-    duration="1000"
+    duration="800"
   >
     <block v-for="(item, index) in list" :index="index" :key="index">
       <swiper-item class="swiper-item">
@@ -46,17 +46,18 @@ export default {
   height: 100%;
   box-sizing: border-box;
   padding:15px 0;
+  box-sizing: border-box;
 }
 .chapter {
-  font-size: 26px;
+  font-size: 30px;
   font-weight: bold;
-  line-height: 50px;
+  line-height: 70px;
   text-align: center;
-  letter-spacing: 4px;
+  letter-spacing: 10px;
   writing-mode: vertical-rl;
 }
 .author {
-  color: #999;
+  color: #eee;
   font-size: 14px;
   line-height: 22px;
   padding-left: 6px;
@@ -65,16 +66,15 @@ export default {
 }
 .paragraphs {
   letter-spacing: 4px;
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: center;
+  writing-mode: vertical-rl;
 }
 .paragraph {
-  writing-mode: vertical-rl;
-  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
   font-weight: bold;
   letter-spacing: 4px;
-  line-height: 60px;
+  line-height: 40px;
 }
 </style>

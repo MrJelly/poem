@@ -42,8 +42,11 @@ page {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
-div{
+div,
+view {
   box-sizing: border-box;
+  margin:0;
+  padding:0;
 }
 .container {
   height: 100%;

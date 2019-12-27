@@ -1,12 +1,12 @@
 <template>
   <div class="home">
+  <image class="bg-image" src="/static/images/bg_img.png" />
     <div class="poem-list">
       <div class="grid-item" v-for="(value,key) in poemList" :key="key">
-        <div
-          class="item"
-          :style="{backgroundImage:'url('+value.bgimage+')'}"
-          @click="onDetails(value._id)"
-        >{{value.title}}</div>
+        <div class="item" @click="onDetails(value._id)">
+          <image class="bg" :src="'/static/images/bg'+value.bgimage+'.png'" />
+          <div class="text">{{value.title}}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -16,14 +16,6 @@ import { getPoemList, judgeToPage } from "@utils/db";
 export default {
   data() {
     return {
-      bgList: [
-        "https://706f-poemtest-1300983977.tcb.qcloud.la/static/bg1%403x.png?sign=a048b9512bf35d38978de5825d45d9b9&t=1577348712",
-        "https://706f-poemtest-1300983977.tcb.qcloud.la/static/bg2%403x.png?sign=c28bbc884d071b8d7f5338181acfbf49&t=1577348742",
-        "https://706f-poemtest-1300983977.tcb.qcloud.la/static/bg3%403x.png?sign=7743311cb86f67aeb779100633760761&t=1577348771",
-        "https://706f-poemtest-1300983977.tcb.qcloud.la/static/bg4%403x.png?sign=d8a2d6af9f4811a6b60751e9e0165982&t=1577348897",
-        "https://706f-poemtest-1300983977.tcb.qcloud.la/static/bg5%403x.png?sign=ca5bfa2e9aa0fc016144ee35e52e591b&t=1577348915",
-        "https://706f-poemtest-1300983977.tcb.qcloud.la/static/bg6%403x.png?sign=72fa8534dd3d308da51c69aa0056785c&t=1577348927"
-      ],
       poemList: [
         // {
         //   _id: "G2t7vekU40ZYLJ6XkZv3nhQTEO5Tucj1vvnQZwqORuag0641",
@@ -127,14 +119,22 @@ export default {
 
 <style lang="less" scoped>
 .home {
+  width: 100%;
   height: 100%;
-  background: url(https://706f-poemtest-1300983977.tcb.qcloud.la/static/bg_img%403x.png?sign=75dacdc42dd7b6b6350570b8c7392652&t=1577347347)
-    center center no-repeat fixed;
-  background-size: cover;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  .bg-image {
+    width: 100%;
+    height: 100%;
+  }
   .poem-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    overflow-y: auto;
     display: flex;
     flex-wrap: wrap;
     padding-left: 18px;
@@ -146,24 +146,33 @@ export default {
       margin-top: 18px;
     }
     .item {
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 210px;
+      position: relative;
+      height: 230px;
       width: 100%;
-      font-weight: 600;
-      padding-top: 4px;
-      padding-bottom: 4px;
-      writing-mode: vertical-rl;
-      font-family: "myfont";
-      font-size: 35px;
-      letter-spacing: -6px;
-      color: #fff;
-      font-weight: 500;
       box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, 0.5);
+      .bg {
+        width: 100%;
+        height: 100%;
+      }
+      .text {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        writing-mode: vertical-rl;
+        font-family: "myfont";
+        font-size: 35px;
+        letter-spacing: -6px;
+        color: #fff;
+        font-weight: 500;
+      }
     }
   }
 }

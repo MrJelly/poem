@@ -9,7 +9,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#1d3243",
-    "navigationBarTitleText": "Poem",
+    "navigationBarTitleText": "古诗词选集",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
