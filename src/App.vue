@@ -31,22 +31,19 @@ export default {
 </script>
 
 <style>
-@font-face {
-  font-family: "myfont";
-  src: url(https://706f-poemtest-1300983977.tcb.qcloud.la/static/font-face.ttf?sign=bdc68e068371953bc9a81a230372bba6&t=1577353738)
-    format("truetype");
-  font-weight: normal;
-
-  font-style: normal;
-}
+@import "./styles/index.css";
 page {
+  box-sizing: border-box;
   background: #1d3243;
+  color: #fff;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  font-family: "myfont";
   -webkit-overflow-scrolling: touch;
+}
+div{
+  box-sizing: border-box;
 }
 .container {
   height: 100%;

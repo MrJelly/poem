@@ -13,11 +13,10 @@
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "color": "#8e98a1",
+    "color": "#77848E",
     "backgroundColor": "#1d3243",
     "selectedColor": "#fff",
     "borderStyle": "white",
-
     "list": [{
       "text": "首页",
       "pagePath": "pages/home/main",
@@ -28,18 +27,6 @@
       "pagePath": "pages/about/main",
       "iconPath": "static/tabs/about.png",
       "selectedIconPath": "static/tabs/about-active.png"
-    }],
-
-    "items": [{
-      "name": "首页",
-      "pagePath": "pages/home/main",
-      "icon": "static/tabs/home.png",
-      "activeIcon": "static/tabs/home-active.png"
-    }, {
-      "name": "关于",
-      "pagePath": "pages/about/main",
-      "icon": "static/tabs/about.png",
-      "activeIcon": "static/tabs/about-active.png"
     }],
     "position": "bottom"
   },

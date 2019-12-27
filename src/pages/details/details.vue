@@ -1,11 +1,14 @@
 <template>
   <div class="details" :style="{backgroundImage:'url('+bgImage+')'}">
     <div class="bg-color">
-      <h3>{{list.title}}</h3>
-      <p>{{list.author}}·{{list.tags}}</p>
-      <ul>
-        <li v-for="(value, key) in list.paragraphs" :key="key">{{value}}</li>
-      </ul>
+      <div class="content">
+        <h3>{{list.title}}</h3>
+        <p>{{list.author}}·{{list.tags}}</p>
+        <ul>
+          <li v-for="(value, key) in list.paragraphs" :key="key">{{value}}</li>
+        </ul>
+      </div>
+
       <Reading v-if="false" :text="readingText" />
     </div>
   </div>
@@ -13,13 +16,13 @@
 
 <script>
 import { getPoemDetails, getRandomImage } from "@utils/db";
-import Reading from "@/components/reading"
+import Reading from "@/components/reading";
 export default {
   data() {
     return {
       bgImage: "",
       id: "",
-      isReading:false,
+      isReading: false,
       list: {
         // _id: "G2t7vekU40ZYLJ6XkZv3nhQTEO5Tucj1vvnQZwqORuag0641",
         // author: "佚名",
@@ -103,13 +106,13 @@ export default {
   },
   computed: {
     readingText() {
-      const t = this.list
-      if(JSON.stringify(t) === '{}')return ""
-      return t.title + ','+t.author+','+"趙錢孫李，周吳鄭王。"
+      const t = this.list;
+      if (JSON.stringify(t) === "{}") return "";
+      return t.title + "," + t.author + "," + "趙錢孫李，周吳鄭王。";
     }
   },
   components: {
-    Reading,
+    Reading
   },
   onLoad(options) {
     this.id = options.id;
@@ -125,15 +128,6 @@ export default {
     this.getList();
   },
   methods: {
-    getBackgroundImage() {
-      getRandomImage()
-        .then(data => {
-          this.bgImage = data.fileList[0].tempFileURL;
-        })
-        .catch(err => {
-          console.log("TCL: getBackgroundImage err", err);
-        });
-    },
     getList() {
       getPoemDetails(this.id).then(data => {
         const _list = data[0];
@@ -147,20 +141,22 @@ export default {
 
 <style lang="less" scoped>
 .details {
+  box-sizing: border-box;
   position: relative;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  padding-left: 15px;
+  padding-right: 15px;
   .bg-color {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
+    height: 100%;
     background: rgba(255, 255, 255, 0.1);
   }
   .play {
@@ -168,27 +164,47 @@ export default {
     top: 20px;
     right: 20px;
   }
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+    padding:50px 0;
+    -webkit-overflow-scrolling: touch;
+  }
   h3 {
     font-size: 28px;
     font-weight: bold;
-    line-height: 30px;
+    line-height: 60px;
+    width: 60px;
     text-align: center;
-    color: #fff;
+    letter-spacing: 4px;
+    writing-mode: vertical-rl;
   }
   p {
     color: #fefefe;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 22px;
+    padding-left: 8px;
+    padding-right: 8px;
     text-align: center;
+    letter-spacing: 4px;
+    writing-mode: vertical-rl;
   }
   ul {
+    writing-mode: vertical-rl;
     li {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
       font-size: 20px;
-      line-height: 30px;
+      line-height: 36px;
+      letter-spacing: 4px;
     }
   }
 }

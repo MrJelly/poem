@@ -11,9 +11,6 @@
     </div>
   </div>
 </template>
-
-
-
 <script>
 import { getPoemList, judgeToPage } from "@utils/db";
 export default {
@@ -106,11 +103,17 @@ export default {
       judgeToPage(_id)
         .then(data => {
           wx.hideLoading();
-          if (data == 0) {
-            const url = "../directory/main?id=" + _id;
-            wx.navigateTo({ url });
-          } else {
-            const url = "../details/main?id=" + _id;
+          const judgeId = data.list[0].judgeId;
+          console.log("TCL: onDetails -> judgeId", judgeId);
+          let url = "";
+          if (judgeId == 1) {
+            url = "../details/main?id=" + _id;
+          } else if (judgeId == 2) {
+            url = "../subdetails/main?id=" + _id;
+          } else if (judgeId == 3) {
+            url = "../directory/main?id=" + _id;
+          }
+          if (url) {
             wx.navigateTo({ url });
           }
         })
@@ -125,7 +128,6 @@ export default {
 <style lang="less" scoped>
 .home {
   height: 100%;
-  background-color: #fefefe;
   background: url(https://706f-poemtest-1300983977.tcb.qcloud.la/static/bg_img%403x.png?sign=75dacdc42dd7b6b6350570b8c7392652&t=1577347347)
     center center no-repeat fixed;
   background-size: cover;
@@ -152,15 +154,16 @@ export default {
       justify-content: center;
       height: 210px;
       width: 100%;
-      font-size: 16px;
       font-weight: 600;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      padding-top: 4px;
+      padding-bottom: 4px;
       writing-mode: vertical-rl;
-      font-size: 30px;
-      letter-spacing: 0;
+      font-family: "myfont";
+      font-size: 35px;
+      letter-spacing: -6px;
       color: #fff;
       font-weight: 500;
+      box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, 0.5);
     }
   }
 }

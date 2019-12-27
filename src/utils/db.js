@@ -1,3 +1,10 @@
+if (!wx.cloud) {
+  console.error('请使用 2.2.3 或以上的基础库以使用云能力')
+} else {
+  wx.cloud.init({
+    env: 'poemtest'
+  })
+}
 const db = wx.cloud.database()
 const command = db.command
 const $ = command.aggregate
@@ -20,17 +27,26 @@ export async function getPoemList() {
 }
 export async function judgeToPage(_id) { //判断跳转页面
   return new Promise((resolve, reject) => {
-    poem.where({
-      _id,
-      paragraphs: command.exists(true)
-    }).count({
-      success: function (res) {
-        resolve(res.total)
-      },
-      fail: function (err) {
-        reject(err)
-      }
+    poem.aggregate().match({
+      _id
     })
+      .project({
+        section: $.ifNull(['$section', 0]),
+        content: $.ifNull(['$content', 0])
+      }).project({
+        judgeId: $.switch({
+          branches: [
+            { case: $.neq(['$section', 0]), then: 2 },
+            { case: $.neq(['$content', 0]), then: 3 }
+          ],
+          default: 1
+        })
+      }).end().then(data => {
+        console.log("TCL: judgeToPage -> data", data)
+        resolve(data)
+      }).catch(err => {
+        reject(err)
+      })
   })
 }
 export async function getPoemDetails(_id) { //
@@ -69,18 +85,32 @@ export async function getDirectory(_id) { //获取二级目录
   })
 }
 export async function getPoemSubDetails(_id, contentId) { //
-  return new Promise((resolve, reject) => {
-    poem.aggregate().match({
-      _id
-    }).project({
-      content: $.slice(['$content', parseInt(contentId), 1]),
-    }).end().then(data => {
-      console.log("TCL: getPoemSubDetails -> data", data)
-      resolve(data)
-    }).catch(err => {
-      reject(err)
+  if (contentId) {
+    return new Promise((resolve, reject) => {
+      poem.aggregate().match({
+        _id
+      }).project({
+        content: $.slice(['$content', parseInt(contentId), 1]),
+      }).end().then(data => {
+        resolve(data)
+      }).catch(err => {
+        reject(err)
+      })
     })
-  })
+  } else {
+    return new Promise((resolve, reject) => {
+      poem.where({
+        _id
+      }).get({
+        success: res => {
+          resolve(res)
+        },
+        fail: err => {
+          reject(err)
+        }
+      })
+    })
+  }
 }
 // project({
 //   content: $.slice(['$content', Math.floor(Math.random() * ($.size('$content'))), 1]),
@@ -107,12 +137,10 @@ export async function getRandomImage() { //
         wx.cloud.getTempFileURL({
           fileList: [fileId],
           success: res => {
-            // get temp file URL
             resolve(res)
           },
           fail: err => {
             reject(err)
-            // handle error
           }
         })
 
