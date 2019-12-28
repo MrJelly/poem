@@ -1,12 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createLogger from 'vuex/dist/logger'
-import { getRandomImage, getPoemList, getPoemDetails, getPoemSubDetails, getDirectory } from "@utils/db";
+import {
+  getRandomImage,
+  getPoemList,
+  getPoemDetails,
+  getPoemSubDetails,
+  getDirectory
+} from "@utils/db";
 import Queue from "@utils/queue";
 Vue.use(Vuex)
 const debug = process.env.NODE_ENV !== 'production'
 const state = {
-  bgImage: wx.getStorageSync("bgImage") || "",
+  bgImage: "",
   poem_list: [],
   list_type1: new Queue(10),
   list_type2: new Queue(10),
@@ -16,10 +22,12 @@ const getters = {
   bgImage: state => state.bgImage
 };
 const actions = {
-  attempt_bgimage({ commit }) {
-    let curTick = Date.now()
+  attempt_bgimage({
+    commit
+  }) {
+    let curTick = Date.parse(new Date())
     let lastTick = wx.getStorageSync("refreshTick") || 0
-    if (curTick - lastTick < 10 * 60) {
+    if (curTick - lastTick < 10 * 60 * 1000) {
       const bg = wx.getStorageSync("bgImage")
       if (bg) {
         commit('set_bgimage', bg)
@@ -37,11 +45,14 @@ const actions = {
         console.log("TCL: getBackgroundImage err", err);
       });
   },
-  attempt_poem_list({ commit, state }) {
-    let curTick = Date.now()
+  attempt_poem_list({
+    commit,
+    state
+  }) {
+    let curTick = Date.parse(new Date())
     let lastTick = wx.getStorageSync("poemTick") || 0
-    if (curTick - lastTick < 5 * 60) {
-      if (state.poem_list.length>0) {
+    if (curTick - lastTick < 5 * 60 * 1000) {
+      if (state.poem_list.length > 0) {
         return Promise.resolve(state.poem_list)
       }
     }
@@ -54,7 +65,10 @@ const actions = {
       return Promise.resolve(data)
     });
   },
-  attempt_list_type1({ commit, state }, _id) {
+  attempt_list_type1({
+    commit,
+    state
+  }, _id) {
     let hasIndex = state.list_type1.has(_id)
     if (hasIndex !== undefined) {
       return Promise.resolve(state.list_type1.queue(hasIndex))
@@ -69,7 +83,10 @@ const actions = {
       return Promise.resolve(_list)
     });
   },
-  attempt_list_type2({ commit, state }, obj) {
+  attempt_list_type2({
+    commit,
+    state
+  }, obj) {
     if (!obj._contentId) obj._contentId = ""
     let hasIndex = state.list_type2.has(obj._id + obj._contentId)
     if (hasIndex !== undefined) {
@@ -93,11 +110,22 @@ const actions = {
           _id = _list._id
           title = _list.title;
         }
-        commit("set_list_type2", { _id, _poemlist, title })
-        return Promise.resolve({ _id, _poemlist, title })
+        commit("set_list_type2", {
+          _id,
+          _poemlist,
+          title
+        })
+        return Promise.resolve({
+          _id,
+          _poemlist,
+          title
+        })
       });
   },
-  attempt_list_type3({ commit, state }, _id) {
+  attempt_list_type3({
+    commit,
+    state
+  }, _id) {
     let hasIndex = state.list_type3.has(_id)
     if (hasIndex !== undefined) {
       return Promise.resolve(state.list_type3.queue(hasIndex))

@@ -1,5 +1,6 @@
 <template>
-  <div class="details" :style="{backgroundImage:'url('+bgImage+')'}">
+  <div class="details">
+    <image class="bg-iamge" :src="bgImage" />
     <div class="bg-color">
       <div class="content">
         <div class="title">{{list.title}}</div>
@@ -8,14 +9,12 @@
           <li class="paragraph" v-for="(value, key) in list.paragraphs" :key="key">{{value}}</li>
         </ul>
       </div>
-
       <Reading v-if="false" :text="readingText" />
     </div>
   </div>
 </template>
 
 <script>
-import { getPoemDetails } from "@utils/db";
 import Reading from "@/components/reading";
 export default {
   data() {
@@ -27,7 +26,7 @@ export default {
   },
   computed: {
     bgImage() {
-      return this.$store.getters.bgImage;
+      return this.$store.getters.bgImage || "/static/images/bg_img.png";
     },
     readingText() {
       const t = this.list;
@@ -65,18 +64,17 @@ export default {
 
 <style lang="less" scoped>
 .details {
-  box-sizing: border-box;
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  padding-left: 15px;
-  padding-right: 15px;
+  .bg-iamge {
+    width: 100%;
+    height: 100%;
+  }
   .bg-color {
     position: absolute;
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;

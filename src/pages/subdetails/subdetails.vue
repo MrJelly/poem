@@ -1,5 +1,6 @@
 <template>
-  <div class="subdetails" :style="{backgroundImage:'url('+bgImage+')'}">
+  <div class="subdetails">
+    <image class="bg-iamge" :src="bgImage" />
     <div class="bg-color">
       <Swiper :list="list" />
     </div>
@@ -7,7 +8,6 @@
 </template>
 
 <script>
-import { getPoemSubDetails } from "@utils/db";
 import Swiper from "@/components/swiper";
 export default {
   data() {
@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     bgImage() {
-      return this.$store.getters.bgImage;
+      return this.$store.getters.bgImage || "/static/images/bg_img.png";
     }
   },
   components: {
@@ -64,15 +64,15 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  padding-left: 15px;
-  padding-right: 15px;
+  .bg-iamge {
+    width: 100%;
+    height: 100%;
+  }
   .bg-color {
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
     background: rgba(255, 255, 255, 0.1);
