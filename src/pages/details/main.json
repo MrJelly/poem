@@ -1,7 +1,4 @@
 {
   "navigationBarTitleText": "",
-  "disableScroll":true,
-  "usingComponents": {
-    "van-button": "/static/vant/button/index"
-  }
+  "disableScroll":true
 }

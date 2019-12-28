@@ -15,19 +15,20 @@
 </template>
 
 <script>
-import { getPoemDetails, getRandomImage } from "@utils/db";
+import { getPoemDetails } from "@utils/db";
 import Reading from "@/components/reading";
 export default {
   data() {
     return {
-      bgImage: "",
       id: "",
       isReading: false,
-      list: {
-      }
+      list: {}
     };
   },
   computed: {
+    bgImage() {
+      return this.$store.getters.bgImage;
+    },
     readingText() {
       const t = this.list;
       if (JSON.stringify(t) === "{}") return "";
@@ -39,7 +40,6 @@ export default {
   },
   onLoad(options) {
     this.id = options.id;
-    console.log("TCL: onLoad -> id", this.id);
   },
   onUnload() {
     this.id = "";
@@ -47,21 +47,16 @@ export default {
     this.list = {};
   },
   mounted() {
-    this.getBackgroundImage();
+    this.$store.dispatch("attempt_bgimage");
     this.getList();
   },
   methods: {
     getList() {
-      wx.showLoading({
-        title: "加载中"
-      });
-      getPoemDetails(this.id).then(data => {
-        wx.hideLoading();
-        const _list = data[0];
-         wx.setNavigationBarTitle({
-            title:_list.title
-          });
-        _list && (this.list = { ..._list });
+      this.$store.dispatch("attempt_list_type1", this.id).then(data => {
+        wx.setNavigationBarTitle({
+          title: data.title
+        });
+        data && (this.list = { ...data });
       });
     }
   }
@@ -107,9 +102,8 @@ export default {
     -webkit-overflow-scrolling: touch;
   }
   .title {
-    font-size: 28px;
-    line-height: 30px;
-    padding-right:30px;
+    font-size: 30px;
+    line-height: 60px;
     width: 60px;
     font-weight: bold;
     text-align: center;
@@ -118,9 +112,9 @@ export default {
   }
   .tags {
     color: #fefefe;
-    font-size: 18px;
-    padding-left: 20px;
-    padding-right: 20px;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 12px;
     text-align: center;
     letter-spacing: 4px;
     writing-mode: vertical-rl;

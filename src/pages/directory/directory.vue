@@ -1,5 +1,6 @@
 <template>
   <div class="directory">
+    <image class="bg-image" src="/static/images/bg_img.png" />
     <div class="bg-color">
       <div class="content">
         <div class="title">{{list.title}}</div>
@@ -13,42 +14,37 @@
           >{{value.title || value.type || value.chapter}}</li>
         </ul>
       </div>
-      <p v-if="list.abstract" class="abstract">{{list.abstract}}</p>
-      <Reading v-if="false" :text="readingText" />
     </div>
   </div>
 </template>
 
 <script>
-import { getDirectory, getRandomImage } from "@utils/db";
 export default {
+  // <div v-if="list.abstract" class="abstract">{{list.abstract}}</div>
+  //       <Reading v-if="false" :text="readingText" />
   data() {
     return {
       id: "",
-      bgImage: "",
       list: {}
     };
   },
   onLoad(options) {
     this.id = options.id;
-    console.log("TCL: onLoad -> id", this.id);
   },
   onUnload() {
     this.id = "";
     this.list = {};
   },
   mounted() {
-    // this.getBackgroundImage();
     this.getContent();
   },
   methods: {
     getContent() {
-      getDirectory(this.id).then(data => {
-        const _list = data[0];
+      this.$store.dispatch("attempt_list_type3", this.id).then(data => {
         wx.setNavigationBarTitle({
-          title: _list.title
+          title: data.title
         });
-        _list && (this.list = { ..._list });
+        data && (this.list = { ...data });
       });
     },
     onSubDetails(contentId) {
@@ -63,18 +59,18 @@ export default {
 <style lang="less" scoped>
 .directory {
   position: relative;
-  background: url(https://706f-poemtest-1300983977.tcb.qcloud.la/static/bg_img%403x.png?sign=75dacdc42dd7b6b6350570b8c7392652&t=1577347347)
-    center center no-repeat fixed;
-  background-size: cover;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  padding-left: 15px;
-  padding-right: 15px;
+  .bg-image {
+    width: 100%;
+    height: 100%;
+  }
   .bg-color {
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
     background: rgba(255, 255, 255, 0.1);
@@ -83,8 +79,16 @@ export default {
     color: #fefefe;
     font-size: 24px;
     line-height: 36px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -92,24 +96,22 @@ export default {
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
-    width: 100%;
-    height: 100%;
     padding: 50px 0;
     -webkit-overflow-scrolling: touch;
     .title {
+      width: 60px;
       font-size: 28px;
       font-weight: bold;
-      line-height: 70px;
+      line-height: 60px;
       text-align: center;
       letter-spacing: 10px;
       writing-mode: vertical-rl;
     }
     .tags {
       color: #fefefe;
-      font-size: 16px;
-      line-height: 22px;
-      padding-left: 10px;
-      padding-right: 10px;
+      font-size: 14px;
+      line-height: 20px;
+      padding-left: 12px;
       text-align: center;
       letter-spacing: 4px;
       writing-mode: vertical-rl;
@@ -118,8 +120,14 @@ export default {
       writing-mode: vertical-rl;
       .paragraph {
         font-size: 24px;
-        line-height: 40px;
-        letter-spacing: 4px;
+        line-height: 50px;
+        letter-spacing: 8px;
+        &::before {
+          content: "【";
+        }
+        &::after {
+          content: "】";
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-  <image class="bg-image" src="/static/images/bg_img.png" />
+    <image class="bg-image" src="/static/images/bg_img.png" />
     <div class="poem-list">
       <div class="grid-item" v-for="(value,key) in poemList" :key="key">
         <div class="item" @click="onDetails(value._id)">
@@ -16,61 +16,7 @@ import { getPoemList, judgeToPage } from "@utils/db";
 export default {
   data() {
     return {
-      poemList: [
-        // {
-        //   _id: "G2t7vekU40ZYLJ6XkZv3nhQTEO5Tucj1vvnQZwqORuag0641",
-        //   title: "百家姓",
-        //   bgImg:"https://706f-poemtest-1300983977.tcb.qcloud.la/static/bg1%403x.png?sign=a048b9512bf35d38978de5825d45d9b9&t=1577348712"
-        // },
-        // {
-        //   _id: "5OSgstHdRcUrSvkopTDFPtH49PHodVSt9pxqh3B9BJPYIjSD",
-        //   title: "弟子規"
-        // },
-        // {
-        //   _id: "hESK2tzXaHTSUXmgrcddaaBfYfMCEzRyr8ECsIyxnsoeVZ9q",
-        //   title: "古文觀止"
-        // },
-        // {
-        //   _id: "YAjtH2fxecbD0dPJDTmTxZiqTA3ofR1di5pCpV56l6yPfgSl",
-        //   title: "千家詩"
-        // },
-        // {
-        //   _id: "zI9i2mFoEWw0wGhqlri4Kt9bpm4IwS1DTA8OqxMYH8yOUXQn",
-        //   title: "千字文"
-        // },
-        // {
-        //   _id: "QmROEzVE3uG9dt4iE8HPORKt0mgTsg6QQurMDxsRlHIumq6h",
-        //   title: "三字經"
-        // },
-        // {
-        //   _id: "E5idFTR5YbdoZ89GwDq2ZWMhNGXdFQ9DlAWVsP00NUqXVFpY",
-        //   title: "三字經"
-        // },
-        // {
-        //   _id: "q7QuaX7aRAyqPiDzwfXOdZNOeNH2OnTVsyGjyyrH0Elsc6W7",
-        //   title: "聲律啓蒙"
-        // },
-        // {
-        //   _id: "WD0xKk8mjzk3f9lPVF3b6OnBmqkanPKutbscX0NjUnV6LgCm",
-        //   title: "唐詩三百首"
-        // },
-        // {
-        //   _id: "D8Xc6vsChv3mbjVBaSSCwiz2umn7u8KORj2UZeYVkb3hMWLu",
-        //   title: "文字蒙求"
-        // },
-        // {
-        //   _id: "i1GWC7F39Mx1qccpUFtCnvMuBOcMQsdJHM1vHposkotgHevL",
-        //   title: "幼學瓊林"
-        // },
-        // {
-        //   _id: "cJ6lGZpVJioKol4wSwgNM8h7ucWJ3CLo8CM1nSmmBiVrLjyD",
-        //   title: "增廣賢文"
-        // },
-        // {
-        //   _id: "wbr8ZsXjZoetwdZdMHcwvIircJG5P6vslUNMbi1J8H3hoi7Q",
-        //   title: "朱子家訓"
-        // }
-      ]
+      poemList: []
     };
   },
   mounted() {
@@ -78,13 +24,8 @@ export default {
   },
   methods: {
     getPoemList() {
-      wx.showLoading({
-        title: "加载中"
-      });
-      getPoemList().then(data => {
-        console.log("TCL: getPoemList -> data", data);
-        wx.hideLoading();
-        this.poemList = data;
+      this.$store.dispatch("attempt_poem_list").then(data => {
+        this.poemList = [...data];
       });
     },
 

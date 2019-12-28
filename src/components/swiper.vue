@@ -45,13 +45,14 @@ export default {
   overflow-y: hidden;
   height: 100%;
   box-sizing: border-box;
-  padding:15px 0;
+  padding: 15px 0;
   box-sizing: border-box;
 }
 .chapter {
+  width: 60px;
   font-size: 30px;
   font-weight: bold;
-  line-height: 70px;
+  line-height: 60px;
   text-align: center;
   letter-spacing: 10px;
   writing-mode: vertical-rl;
@@ -59,9 +60,9 @@ export default {
 .author {
   color: #eee;
   font-size: 14px;
-  line-height: 22px;
-  padding-left: 6px;
-  padding-right: 6px;
+  line-height: 20px;
+  padding-left: 12px;
+  letter-spacing: 4px;
   writing-mode: vertical-rl;
 }
 .paragraphs {
