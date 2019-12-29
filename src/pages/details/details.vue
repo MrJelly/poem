@@ -124,7 +124,7 @@ export default {
       align-items: center;
       justify-content: center;
       font-size: 20px;
-      line-height: 36px;
+      line-height: 40px;
       letter-spacing: 4px;
     }
   }

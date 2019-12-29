@@ -2,7 +2,7 @@ if (!wx.cloud) {
   console.error('请使用 2.2.3 或以上的基础库以使用云能力')
 } else {
   wx.cloud.init({
-    env: 'poemtest'
+    env: 'poem-production'
   })
 }
 const db = wx.cloud.database()
@@ -42,7 +42,6 @@ export async function judgeToPage(_id) { //判断跳转页面
           default: 1
         })
       }).end().then(data => {
-        console.log("TCL: judgeToPage -> data", data)
         resolve(data)
       }).catch(err => {
         reject(err)
@@ -64,7 +63,6 @@ export async function getPoemDetails(_id) { //
   })
 }
 export async function getDirectory(_id) { //获取二级目录
-  console.log("TCL: getDirectory -> _id", _id)
   return new Promise((resolve, reject) => {
     poem.where({
       _id
@@ -86,7 +84,6 @@ export async function getDirectory(_id) { //获取二级目录
   })
 }
 export async function getPoemSubDetails(_id, contentId) { //
-  console.log("TCL: getPoemSubDetails -> contentId", contentId)
   if (contentId) {
     return new Promise((resolve, reject) => {
       poem.aggregate().match({

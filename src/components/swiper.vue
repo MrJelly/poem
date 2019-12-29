@@ -45,7 +45,7 @@ export default {
   overflow-y: hidden;
   height: 100%;
   box-sizing: border-box;
-  padding: 15px 0;
+  padding: 50px 0;
   box-sizing: border-box;
 }
 .chapter {

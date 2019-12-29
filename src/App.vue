@@ -45,8 +45,8 @@ page {
 div,
 view {
   box-sizing: border-box;
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 .container {
   height: 100%;

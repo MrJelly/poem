@@ -37,7 +37,6 @@ export default {
         .then(data => {
           wx.hideLoading();
           const judgeId = data.list[0].judgeId;
-          console.log("TCL: onDetails -> judgeId", judgeId);
           let url = "";
           if (judgeId == 1) {
             url = "../details/main?id=" + _id;
