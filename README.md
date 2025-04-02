@@ -1,13 +1,10 @@
-# poem
+# 基于mpvue 开发的一款古诗词小程序 poem
 
 > A Mpvue project
 
 ## Build Setup
 
 ``` bash
-# 初始化项目
-vue init mpvue/mpvue-quickstart myproject
-cd myproject
 
 # 安装依赖
 yarn
