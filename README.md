@@ -1,4 +1,4 @@
-# 基于mpvue 开发的一款古诗词小程序 poem
+# 基于 mpvue+微信云开发 开发的一款古诗词小程序 poem
 
 > A Mpvue project
 
